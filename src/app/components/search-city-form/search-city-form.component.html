@@ -1,10 +1,13 @@
 <div class="form-container">
-  <form>
+  <form (ngSubmit)="submit()" [formGroup]="searchCityForm" #formDir="ngForm">
     <div class="search-name-container">
       <span class="search-name-input">
-        <label for="cidade">Primeiro, digite o nome da cidade:</label>
-        <input id="cidade" name="cidade" />
+        <label for="city">Primeiro, digite o nome da cidade:</label>
+        <input formControlName="city" required />
       </span>
+      <div *ngIf="city.invalid && formDir.submitted">
+        <p *ngIf="city.errors?.['required']">O nome da cidade é obrigatório</p>
+      </div>
     </div>
     <button>Pesquisar</button>
   </form>

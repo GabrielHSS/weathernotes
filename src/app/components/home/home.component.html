@@ -9,7 +9,9 @@
       <p class="description">Vamos começar!</p>
     </header>
 
-    <app-search-city-form></app-search-city-form>
+    <app-search-city-form
+      (onSubmit)="submitEventHandler($event)"
+    ></app-search-city-form>
     <hr class="divider" />
 
     <div class="city-weather-info">
