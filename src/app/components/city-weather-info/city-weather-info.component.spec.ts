@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { CityWeatherInfoComponent } from './city-weather-info.component';
+
+describe('CityWeatherInfoComponent', () => {
+  let component: CityWeatherInfoComponent;
+  let fixture: ComponentFixture<CityWeatherInfoComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ CityWeatherInfoComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(CityWeatherInfoComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
