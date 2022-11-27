@@ -9,7 +9,7 @@ import { handleError } from 'src/app/utils';
   styleUrls: ['./home.component.sass'],
 })
 export class HomeComponent {
-  weatherData: WeatherData | null = null;
+  weatherData!: WeatherData;
 
   constructor(private weatherService: WeatherService) {}
 

@@ -1,4 +1,19 @@
-<div class="recommended-music-genre">
-  <p>Gênero musical recomendado: <b>NOME_GENERO_MUSICAL!</b></p>
-  <div></div>
+<div class="recommended-music-genre" *ngIf="musicPlaylist">
+  <p>
+    Gênero musical recomendado:
+    <b>{{ genre }}</b>
+  </p>
+
+  <p *ngIf="isLoading">carregando...</p>
+  <ul *ngIf="!isLoading">
+    <li class="music-item" *ngFor="let hit of this.musicPlaylist">
+      <img class="cover" src="{{ hit.track.images.coverart }}" alt="" />
+      <span>
+        <p class="music-item-label">
+          {{ hit.track.title }} - {{ hit.track.subtitle }}
+        </p>
+        <button>Adicionar a playlist</button>
+      </span>
+    </li>
+  </ul>
 </div>
