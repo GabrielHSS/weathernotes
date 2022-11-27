@@ -12,6 +12,7 @@
     <app-search-city-form
       (onSubmit)="submitEventHandler($event)"
     ></app-search-city-form>
+
     <hr class="divider" />
 
     <div class="city-weather-info">
@@ -19,9 +20,6 @@
       <div></div>
     </div>
 
-    <div class="recommended-music-genre">
-      <p>Gênero musical recomendado: <b>NOME_GENERO_MUSICAL!</b></p>
-      <div></div>
-    </div>
+    <app-recommended-musical-genre></app-recommended-musical-genre>
   </div>
 </div>
