@@ -1,16 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { MusicItem } from './types';
-
-export function handleError(error: unknown) {
-  if (error instanceof HttpErrorResponse) {
-    console.error(error.message);
-  } else if (typeof error === 'string') {
-    console.error(error);
-  } else {
-    console.error('Erro desconhecido.');
-  }
-}
-
 export function mapTemperatureToMusicConfig(temperature: number) {
   const temperatureTypesToMusicConfig = {
     HOT: { genre: 'Rock', searchQuery: 'rock' },
@@ -37,12 +24,4 @@ export function mapTemperatureToMusicConfig(temperature: number) {
   }
 
   return musicOptions;
-}
-
-export function getJSONFromlocalStorage(itemName: string): MusicItem[] {
-  const item = localStorage.getItem(itemName);
-  if (item) {
-    return JSON.parse(item);
-  }
-  return [];
 }
