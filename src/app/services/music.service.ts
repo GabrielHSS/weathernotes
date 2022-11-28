@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MusicData } from '../types';
 import { mapTemperatureToMusicConfig } from '../utils';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class MusicService {
 
   constructor(private http: HttpClient) {}
 
-  getMusicData(temperature: number): Observable<any> {
+  getMusicData(temperature: number): Observable<MusicData> {
     const options = {
       headers: new HttpHeaders()
         .set(
@@ -21,7 +22,7 @@ export class MusicService {
         .set('x-rapidapi-host', 'shazam.p.rapidapi.com'),
     };
     const musicConfig = mapTemperatureToMusicConfig(temperature);
-    return this.http.get<any>(
+    return this.http.get<MusicData>(
       `${this.BASE_API_URL}?term=${musicConfig.searchQuery}&locale=pt-BR&offset=0&limit=5`,
       options
     );
