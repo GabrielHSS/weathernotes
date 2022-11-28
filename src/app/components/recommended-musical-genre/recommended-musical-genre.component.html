@@ -7,12 +7,10 @@
 
   <ul>
     <li class="music-item" *ngFor="let hit of this.musicPlaylist">
-      <img class="cover" src="{{ hit.track.images.coverart }}" alt="" />
+      <img class="cover" src="{{ hit.image }}" alt="" />
       <span>
-        <p class="music-item-label">
-          {{ hit.track.title }} - {{ hit.track.subtitle }}
-        </p>
-        <button>Adicionar a playlist</button>
+        <p class="music-item-label">{{ hit.title }} - {{ hit.subtitle }}</p>
+        <button (click)="getItem(hit)">Adicionar a playlist</button>
       </span>
     </li>
   </ul>

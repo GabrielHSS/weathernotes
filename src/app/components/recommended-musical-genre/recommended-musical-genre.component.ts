@@ -1,7 +1,11 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { MusicService } from 'src/app/services/music.service';
-import { Hit, MusicData, WeatherData } from 'src/app/types';
-import { handleError, mapTemperatureToMusicConfig } from 'src/app/utils';
+import { MusicData, MusicItem, WeatherData } from 'src/app/types';
+import {
+  getJSONFromlocalStorage,
+  handleError,
+  mapTemperatureToMusicConfig,
+} from 'src/app/utils';
 
 @Component({
   selector: 'app-recommended-musical-genre',
@@ -11,7 +15,7 @@ import { handleError, mapTemperatureToMusicConfig } from 'src/app/utils';
 export class RecommendedMusicalGenreComponent implements OnInit, OnChanges {
   @Input() weatherData!: WeatherData;
 
-  musicPlaylist!: Hit[];
+  musicPlaylist!: MusicItem[];
   genre!: string;
   isLoading = false;
 
@@ -20,10 +24,29 @@ export class RecommendedMusicalGenreComponent implements OnInit, OnChanges {
   ngOnInit() {}
   ngOnChanges() {
     const temperature = this.weatherData.main.temp;
-    console.log(temperature);
     this.genre = mapTemperatureToMusicConfig(temperature).genre;
     this.fetchMusicData(temperature);
-    console.log(this.isLoading);
+  }
+
+  getItem(item: MusicItem) {
+    const playlistStorage = getJSONFromlocalStorage('musicPlaylist');
+
+    if (playlistStorage.length > 0) {
+      const hasKeyOnStorage = playlistStorage.some((playlistStorageItem) => {
+        return playlistStorageItem.key === item.key;
+      });
+
+      if (hasKeyOnStorage)
+        return console.log('O item já existe em sua playlist');
+
+      playlistStorage.push(item);
+      localStorage.setItem(
+        'musicPlaylist',
+        `${JSON.stringify(playlistStorage)}`
+      );
+    } else {
+      localStorage.setItem('musicPlaylist', `[${JSON.stringify(item)}]`);
+    }
   }
 
   fetchMusicData(temperature: number) {
@@ -31,7 +54,22 @@ export class RecommendedMusicalGenreComponent implements OnInit, OnChanges {
     this.musicService.getMusicData(temperature).subscribe({
       next: (data: MusicData) => {
         const hits = data.tracks.hits;
-        this.musicPlaylist = Object.values(hits);
+        const playlist = hits.map((item) => {
+          const {
+            images: { coverart },
+            title,
+            subtitle,
+            key,
+          } = item.track;
+          return {
+            image: coverart,
+            title,
+            subtitle,
+            key,
+          };
+        });
+
+        this.musicPlaylist = playlist;
       },
       error: handleError,
       complete: () => {

@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { MusicItem } from './types';
 
 export function handleError(error: unknown) {
   if (error instanceof HttpErrorResponse) {
@@ -36,4 +37,12 @@ export function mapTemperatureToMusicConfig(temperature: number) {
   }
 
   return musicOptions;
+}
+
+export function getJSONFromlocalStorage(itemName: string): MusicItem[] {
+  const item = localStorage.getItem(itemName);
+  if (item) {
+    return JSON.parse(item);
+  }
+  return [];
 }

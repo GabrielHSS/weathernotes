@@ -53,7 +53,15 @@ export type Hit = {
     images: {
       coverart: string;
     };
+    key: string;
     title: string;
     subtitle: string;
   };
 };
+
+export interface MusicItem {
+  image: string;
+  title: string;
+  subtitle: string;
+  key: string;
+}
