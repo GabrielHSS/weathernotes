@@ -41,27 +41,3 @@ export interface WeatherData {
   name: string;
   cod: number;
 }
-
-export interface MusicData {
-  tracks: {
-    hits: Hit[];
-  };
-}
-
-export type Hit = {
-  track: {
-    images: {
-      coverart: string;
-    };
-    key: string;
-    title: string;
-    subtitle: string;
-  };
-};
-
-export interface MusicItem {
-  image: string;
-  title: string;
-  subtitle: string;
-  key: string;
-}
