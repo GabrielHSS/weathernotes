@@ -9,16 +9,15 @@ import { mapTemperatureToMusicConfig } from '../utils';
 })
 export class MusicService {
   private BASE_API_URL = 'https://shazam.p.rapidapi.com/search';
+  private X_RAPID_API_KEY =
+    '08a909b0damsh94005eda33720f6p17dd1cjsn5be6cda2492e';
 
   constructor(private http: HttpClient) {}
 
   getMusicData(temperature: number): Observable<MusicData> {
     const options = {
       headers: new HttpHeaders()
-        .set(
-          'x-rapidapi-key',
-          '08a909b0damsh94005eda33720f6p17dd1cjsn5be6cda2492e'
-        )
+        .set('x-rapidapi-key', this.X_RAPID_API_KEY)
         .set('x-rapidapi-host', 'shazam.p.rapidapi.com'),
     };
     const musicConfig = mapTemperatureToMusicConfig(temperature);
