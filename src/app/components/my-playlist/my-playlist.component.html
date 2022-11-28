@@ -5,7 +5,8 @@
     <img class="cover" src="{{ music.image }}" alt="" />
     <span>
       <p class="music-item-label">{{ music.title }} - {{ music.subtitle }}</p>
-      <button>Adicionar a playlist</button>
+      <button (click)="removeItem(music)">Remover item</button>
     </span>
   </li>
 </ul>
+<button (click)="deletePlaylist()">Excluir playlist</button>
