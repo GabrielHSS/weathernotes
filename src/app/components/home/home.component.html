@@ -1,34 +1,27 @@
-<div class="header-links">
-  <a href="/myPlaylist">Ver minha playlist</a>
-</div>
-<div class="main-wrapper">
-  <div class="main-container">
-    <header class="text-header">
-      <h1 class="title">Weather notes</h1>
-      <p class="description">
-        O weather notes é um app que irá te auxiliar a encontrar um estilo
-        musical baseado no clima de sua cidade
-      </p>
-      <p class="description">Vamos começar!</p>
-    </header>
+<div class="main-container">
+  <header class="text-header">
+    <h1 class="title">Weather notes</h1>
+    <p class="description">
+      O weather notes é um app que irá te auxiliar a encontrar um estilo musical
+      baseado no clima de sua cidade
+    </p>
+    <p class="description">Vamos começar!</p>
+  </header>
 
-    <app-search-city-form
-      (onSubmit)="submitEventHandler($event)"
-    ></app-search-city-form>
+  <app-search-city-form
+    (onSubmit)="submitEventHandler($event)"
+  ></app-search-city-form>
+
+  <hr class="divider" />
+
+  <div *ngIf="weatherData">
+    <app-city-weather-info [weatherData]="weatherData"></app-city-weather-info>
 
     <hr class="divider" />
 
-    <div *ngIf="weatherData">
-      <app-city-weather-info
-        [weatherData]="weatherData"
-      ></app-city-weather-info>
-
-      <hr class="divider" />
-
-      <app-recommended-musical-genre
-        [weatherData]="weatherData"
-      ></app-recommended-musical-genre>
-      <hr class="divider" />
-    </div>
+    <app-recommended-musical-genre
+      [weatherData]="weatherData"
+    ></app-recommended-musical-genre>
+    <hr class="divider" />
   </div>
 </div>
