@@ -1,12 +1,26 @@
+<div class="header">
+  <h1>Playlist</h1>
+  <p>
+    Aqui estarão listadas as suas músicas, ordenadas pela data que você salvou
+    elas!
+  </p>
+</div>
 <p>Sua playlist:</p>
+
 <p *ngIf="playlist.length === 0">Você ainda não possui músicas salvas</p>
-<ul *ngIf="playlist.length > 0">
-  <li class="music-item" *ngFor="let music of playlist">
-    <img class="cover" src="{{ music.image }}" alt="" />
-    <span>
-      <p class="music-item-label">{{ music.title }} - {{ music.subtitle }}</p>
-      <button (click)="removeItem(music)">Remover item</button>
-    </span>
-  </li>
-</ul>
-<button (click)="deletePlaylist()">Excluir playlist</button>
+
+<div *ngIf="playlist.length > 0">
+  <ul>
+    <li class="music-item" *ngFor="let music of playlist">
+      <img class="cover" src="{{ music.image }}" alt="" />
+      <span>
+        <p class="music-item-label">
+          {{ music.title }} - {{ music.subtitle }} - Adicionado em
+          {{ music.savedIn }}
+        </p>
+        <button (click)="removeItem(music)">Remover item</button>
+      </span>
+    </li>
+  </ul>
+  <button (click)="deletePlaylist()">Excluir playlist</button>
+</div>

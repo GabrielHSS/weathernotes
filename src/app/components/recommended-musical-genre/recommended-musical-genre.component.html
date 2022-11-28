@@ -10,7 +10,15 @@
       <img class="cover" src="{{ music.image }}" alt="" />
       <span>
         <p class="music-item-label">{{ music.title }} - {{ music.subtitle }}</p>
-        <button (click)="getItem(music)">Adicionar a playlist</button>
+        <button
+          *ngIf="!isMusicOnPlaylist(music)"
+          (click)="addMusicToStoragePlaylist(music)"
+        >
+          Adicionar a playlist
+        </button>
+        <p *ngIf="isMusicOnPlaylist(music)">
+          Essa música já está na sua playlist
+        </p>
       </span>
     </li>
   </ul>

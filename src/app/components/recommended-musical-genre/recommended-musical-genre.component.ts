@@ -28,25 +28,36 @@ export class RecommendedMusicalGenreComponent implements OnInit, OnChanges {
     this.fetchMusicData(temperature);
   }
 
-  getItem(item: MusicItem) {
-    const playlistStorage = getJSONFromlocalStorage('musicPlaylist');
+  addMusicToStoragePlaylist(music: MusicItem) {
+    music.savedIn = new Date().toLocaleDateString('pt-BR');
 
-    if (playlistStorage.length > 0) {
-      const hasKeyOnStorage = playlistStorage.some((playlistStorageItem) => {
-        return playlistStorageItem.key === item.key;
-      });
+    const playlistStorageData = getJSONFromlocalStorage('musicPlaylist');
 
-      if (hasKeyOnStorage)
+    if (playlistStorageData.length > 0) {
+      const hasThisMusicOnStorage = playlistStorageData.some(
+        (playlistStorageItem) => {
+          return playlistStorageItem.key === music.key;
+        }
+      );
+
+      if (hasThisMusicOnStorage)
         return console.log('O item já existe em sua playlist');
 
-      playlistStorage.push(item);
+      playlistStorageData.unshift(music);
+
       localStorage.setItem(
         'musicPlaylist',
-        `${JSON.stringify(playlistStorage)}`
+        `${JSON.stringify(playlistStorageData)}`
       );
     } else {
-      localStorage.setItem('musicPlaylist', `[${JSON.stringify(item)}]`);
+      localStorage.setItem('musicPlaylist', `[${JSON.stringify(music)}]`);
     }
+
+    const newPlaylist = this.musicPlaylist.filter(
+      (playlistItem) => playlistItem.key !== music.key
+    );
+
+    this.musicPlaylist = newPlaylist;
   }
 
   fetchMusicData(temperature: number) {
@@ -77,5 +88,14 @@ export class RecommendedMusicalGenreComponent implements OnInit, OnChanges {
         this.isLoading = false;
       },
     });
+  }
+  isMusicOnPlaylist(music: MusicItem) {
+    const localStoragePlaylist = getJSONFromlocalStorage('musicPlaylist');
+    if (localStoragePlaylist && localStoragePlaylist.length > 0) {
+      return localStoragePlaylist.some(
+        (playlistItem) => playlistItem.key === music.key
+      );
+    }
+    return;
   }
 }

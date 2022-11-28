@@ -3,4 +3,5 @@ export interface MusicItem {
   title: string;
   subtitle: string;
   key: string;
+  savedIn?: string;
 }
